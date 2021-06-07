@@ -17,7 +17,7 @@ def delete_tmp_table(name):
         cursor.execute(f"""DROP TABLE {name}""")
     except MySQLdb.Error as error:
         print(error)
-        sys.exit("Error:Failed to create new tmp table")
+        # sys.exit("Error:Failed to create new tmp table")
     db.commit()
     cursor.close()
     return True
