@@ -10,6 +10,9 @@ from methods.connection import get_redis, get_cursor
 def delete_tmp_table(name):
     """Deletes tmp table"""
     cursor, db = get_cursor()
+    if not cursor or not db:
+        # log that failed getting cursor
+        return False
     if "tmp" not in name:
         # log that name was wrong
         return False
@@ -17,6 +20,8 @@ def delete_tmp_table(name):
         cursor.execute(f"""DROP TABLE {name}""")
     except MySQLdb.Error as error:
         print(error)
+        # LOG
+        return False
         # sys.exit("Error:Failed to create new tmp table")
     db.commit()
     cursor.close()
