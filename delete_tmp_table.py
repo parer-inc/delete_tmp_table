@@ -1,4 +1,4 @@
-"""This service allows to create temporary tables in db"""
+"""This service allows to delete temporary tables in db"""
 import os
 import sys
 import time
@@ -6,6 +6,7 @@ import MySQLdb
 from rq import Worker, Queue, Connection
 from methods.connection import get_redis, get_cursor
 
+r = get_redis()
 
 def delete_tmp_table(name):
     """Deletes tmp table"""
@@ -29,8 +30,6 @@ def delete_tmp_table(name):
 
 
 if __name__ == '__main__':
-    time.sleep(5)
-    r = get_redis()
     q = Queue('delete_tmp_table', connection=r)
     with Connection(r):
         worker = Worker([q], connection=r, name='delete_tmp_table')
