@@ -8,6 +8,7 @@ from methods.connection import get_redis, get_cursor
 
 r = get_redis()
 
+
 def delete_tmp_table(name):
     """Deletes tmp table"""
     cursor, db = get_cursor()
@@ -18,7 +19,7 @@ def delete_tmp_table(name):
         # log that name was wrong
         return False
     try:
-        cursor.execute(f"""DROP TABLE {name}""")
+        cursor.execute(f"""DROP TABLE `{name}`""")
     except MySQLdb.Error as error:
         print(error)
         # LOG
